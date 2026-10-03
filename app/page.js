@@ -4,21 +4,19 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
 
   async function loadEmployees() {
     const response = await fetch("/api/employees");
-
     const data = await response.json();
 
     setEmployees(data);
   }
 
-  async function addEmployee(event) {
-    event.preventDefault();
+  async function addEmployee(e) {
+    e.preventDefault();
 
     await fetch("/api/employees", {
       method: "POST",
@@ -44,16 +42,10 @@ export default function Home() {
   }, []);
 
   return (
-    <main
-      style={{
-        padding: "40px",
-        fontFamily: "Arial"
-      }}
-    >
+    <main style={{ padding: "40px", fontFamily: "Arial" }}>
       <h1>Employee Management</h1>
 
       <form onSubmit={addEmployee}>
-
         <input
           placeholder="Name"
           value={name}
@@ -84,7 +76,6 @@ export default function Home() {
         <button type="submit">
           Add Employee
         </button>
-
       </form>
 
       <hr />
